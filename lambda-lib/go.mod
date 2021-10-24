@@ -1,4 +1,4 @@
-module github.com/theWando/dynamoLambda/lambda-lib
+module github.com/theWando/go-aws-lambda-dynamodb/lambda-lib
 
 go 1.17
 
