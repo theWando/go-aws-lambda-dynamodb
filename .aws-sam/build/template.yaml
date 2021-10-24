@@ -19,7 +19,7 @@ Resources:
         CatchAll:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /restaurants
             Method: GET
       Environment:
         Variables:
@@ -29,11 +29,31 @@ Resources:
       DockerTag: go1.x-v1
       DockerContext: ./read-dynamodb
       Dockerfile: Dockerfile
+  PostRestaurantFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+      - x86_64
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /restaurant
+            Method: POST
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      ImageUri: postrestaurantfunction:go1.x-v1
+    Metadata:
+      DockerTag: go1.x-v1
+      DockerContext: ./post-restaurant
+      Dockerfile: Dockerfile
 Outputs:
   ReadDynamoAPI:
     Description: API Gateway endpoint URL for Prod environment for First Function
     Value:
-      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/restaaurant/
   ReadDynamoFunction:
     Description: First Lambda Function ARN
     Value:
