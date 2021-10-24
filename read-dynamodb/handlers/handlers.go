@@ -15,28 +15,27 @@ import (
 )
 
 var (
-	// defaultHTTPGetAddress Default Address
-	defaultHTTPGetAddress = "https://checkip.amazonaws.com"
-
-	// errNoIP No IP found in response
-	errNoIP = errors.New("no IP in HTTP response")
-
 	// errNon200Response non 200 status code in response
 	errNon200Response = errors.New("non 200 Response found")
 
 	failureResponse = events.APIGatewayProxyResponse{StatusCode: http.StatusInternalServerError, Body: "Oops!"}
 
 	notFountResponse = events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "No restaurants found"}
-
 )
 
 type (
 	response struct {
 		Restaurants []map[string]types.AttributeValue `json:"restaurants"`
 	}
+
+	HandlerFunction func(context.Context, events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error)
+
+	DynamoClient interface {
+		Scan(ctx context.Context, params *dynamodb.ScanInput, optFns ...func(*dynamodb.Options)) (*dynamodb.ScanOutput, error)
+	}
 )
 
-func NewReadRestaurants(db *dynamodb.Client) func(context.Context, events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+func NewReadRestaurants(db DynamoClient) HandlerFunction {
 
 	return func(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 		res, err := db.Scan(ctx, &dynamodb.ScanInput{
