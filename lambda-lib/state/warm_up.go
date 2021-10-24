@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
-	"github.com/theWando/dynamoLambda/lambda-lib/logger"
+	"github.com/theWando/go-aws-lambda-dynamodb/lambda-lib/logger"
 	"go.uber.org/zap"
 )
 
