@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/aws/aws-lambda-go/lambda"
-	"read-dynamodb/handlers"
-	"read-dynamodb/state"
+	"github.com/theWando/go-aws-lambda-dynamodb/lambda-lib/state"
+	"github.com/theWando/go-aws-lambda-dynamodb/read-dynamodb/handlers"
 )
 
 func main() {

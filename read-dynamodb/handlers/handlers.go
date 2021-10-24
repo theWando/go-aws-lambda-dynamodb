@@ -10,8 +10,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
+	"github.com/theWando/go-aws-lambda-dynamodb/lambda-lib/logger"
 	"go.uber.org/zap"
-	"read-dynamodb/logger"
 )
 
 var (
